@@ -1,10 +1,15 @@
 package web.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,14 +28,26 @@ public class User {
     @Column(nullable = false)
     private String city;
 
+    @Column(nullable = false, unique = true)
+    private String login;
+
+    @Column(nullable = false)
+    private String password;
+
+    @OneToMany
+    private Set<Role> roles;
+
     public User() {
     }
 
-    public User(String firstName, String lastName, int age, String city) {
+    public User(String firstName, String lastName, int age, String city, String login, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.city = city;
+        this.login = login;
+        this.password = password;
+        this.roles = roles;
     }
 
     public long getId() {
@@ -73,12 +90,64 @@ public class User {
         this.city = city;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
-    public String toString() {
-        return "User" + id +
-                ": firstName = " + firstName +
-                ", lastName = " + lastName +
-                ", age = " + age +
-                ", city = " + city;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
+/*
+Для того, чтобы в дальнейшим использовать класс User в Spring Security,
+он должен реализовывать интерфейс UserDetails.
+UserDetails можно представить, как адаптер между БД пользователей и тем
+что требуется Spring Security внутри SecurityContextHolder
+ */
