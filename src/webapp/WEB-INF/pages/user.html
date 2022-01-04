@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали пользователя</title>
+</head>
+<body>
+<div th:align="center">
+        <h2>Информация о пользователе</h2>
+    <br/><br/>
+    <br/><br/>
+    <label for="firstName">First Name: </label>
+    <input type="text" th:field="*{userDetails.getFirstName}" id="firstName">
+    <br/><br/>
+    <label for="lastName">Last Name: </label>
+    <input type="text" th:field="*{userDetails.getLastName}" id="lastName">
+    <br/><br/>
+    <label for="age">Age: </label>
+    <input type="text" th:field="*{userDetails.getAge}" id="age">
+    <br/><br/>
+    <label for="name">City: </label>
+    <input type="text" th:field="*{userDetails.getCity}" id="name">
+    <br/>
+</div>
+</body>
+</html>

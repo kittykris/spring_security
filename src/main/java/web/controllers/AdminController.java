@@ -8,12 +8,13 @@ import web.models.User;
 import web.service.UserService;
 
 @Controller
-public class UsersController {
+@RequestMapping("/admin/users")
+public class AdminController {
 
     UserService service;
 
     @Autowired
-    public UsersController(UserService service) {
+    public AdminController(UserService service) {
         this.service = service;
     }
 
