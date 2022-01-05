@@ -3,23 +3,41 @@ package web.models;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     private Long id;
-    @Column
-    private String role;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Transient
+    @ManyToMany
+    @JoinTable(name = "users_roles"
+            , joinColumns = @JoinColumn(name = "role_id")
+            , inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users;
 
     public Role() {
     }
 
-    public Role(Long id, String role) {
+    public Role(Long id, String name) {
         this.id = id;
-        this.role = role;
+        this.name = name;
+    }
+
+    public void addUserToRole(User user) {
+        if (users == null) {
+            users = new HashSet<>();
+        }
+        users.add(user);
     }
 
     public Long getId() {
@@ -30,12 +48,20 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String role) {
+        this.name = role;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     @Override

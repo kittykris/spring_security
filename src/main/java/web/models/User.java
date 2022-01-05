@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,29 +13,32 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 15)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 15)
     private String lastName;
 
     @Column(nullable = false)
     private int age;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 15)
     private String city;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 20)
     private String login;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String password;
 
-    @OneToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles"
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public User() {
@@ -48,6 +52,13 @@ public class User implements UserDetails {
         this.login = login;
         this.password = password;
         this.roles = roles;
+    }
+
+    public void addRoleToUser(Role role) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        roles.add(role);
     }
 
     public long getId() {
