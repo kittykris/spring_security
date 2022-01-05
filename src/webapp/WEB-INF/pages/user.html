@@ -8,6 +8,8 @@
 <div th:align="center">
         <h2>Информация о пользователе</h2>
     <br/><br/>
+    <label for="login">Login: </label>
+    <input type="text" th:field="*{userDetails.getLogin}" id="login">
     <br/><br/>
     <label for="firstName">First Name: </label>
     <input type="text" th:field="*{userDetails.getFirstName}" id="firstName">
@@ -18,8 +20,12 @@
     <label for="age">Age: </label>
     <input type="text" th:field="*{userDetails.getAge}" id="age">
     <br/><br/>
-    <label for="name">City: </label>
-    <input type="text" th:field="*{userDetails.getCity}" id="name">
+    <label for="city">City: </label>
+    <input type="text" th:field="*{userDetails.getCity}" id="city">
+    <br/><br/>
+    <tr th:each="role: ${userDetailsRoles}">
+        <td th:text="${role.getName}"/>
+    </tr>
     <br/>
 </div>
 </body>
