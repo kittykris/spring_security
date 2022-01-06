@@ -4,37 +4,41 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id")
     private long id;
 
-    @Column(nullable = false, length = 15)
+    @NotBlank
     private String firstName;
 
-    @Column(nullable = false, length = 15)
+    @NotBlank
     private String lastName;
 
-    @Column(nullable = false)
+    @NotNull
     private byte age;
 
+    @NotBlank
     @Column(nullable = false, length = 15)
     private String city;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @NotBlank
     private String username;
 
-    @Column(nullable = false, length = 20)
+    @NotBlank
     private String password;
 
+    @NotBlank
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles"
             , joinColumns = @JoinColumn(name = "user_id")
