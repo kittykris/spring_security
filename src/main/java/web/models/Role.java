@@ -16,21 +16,17 @@ public class Role implements GrantedAuthority {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String role;
 
-    @Transient
-    @ManyToMany
-    @JoinTable(name = "users_roles"
-            , joinColumns = @JoinColumn(name = "role_id")
-            , inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
     public Role() {
     }
 
-    public Role(Long id, String name) {
+    public Role(Long id, String role) {
         this.id = id;
-        this.name = name;
+        this.role = role;
     }
 
     public void addUserToRole(User user) {
@@ -48,12 +44,12 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRole() {
+        return role;
     }
 
-    public void setName(String role) {
-        this.name = role;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Set<User> getUsers() {
@@ -66,7 +62,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return null;
+        return role;
     }
 }
 /*

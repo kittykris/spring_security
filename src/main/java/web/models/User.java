@@ -24,13 +24,13 @@ public class User implements UserDetails {
     private String lastName;
 
     @Column(nullable = false)
-    private int age;
+    private byte age;
 
     @Column(nullable = false, length = 15)
     private String city;
 
     @Column(nullable = false, unique = true, length = 20)
-    private String login;
+    private String username;
 
     @Column(nullable = false, length = 20)
     private String password;
@@ -44,14 +44,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String firstName, String lastName, int age, String city, String login, String password, Set<Role> roles) {
+    public User(String firstName, String lastName, byte age, String city, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.city = city;
-        this.login = login;
+        this.username = username;
         this.password = password;
-        this.roles = roles;
     }
 
     public void addRoleToUser(Role role) {
@@ -85,11 +84,11 @@ public class User implements UserDetails {
         this.lastName = lastName;
     }
 
-    public int getAge() {
+    public byte getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(byte age) {
         this.age = age;
     }
 
@@ -101,12 +100,8 @@ public class User implements UserDetails {
         this.city = city;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     public void setPassword(String password) {
@@ -133,7 +128,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return username;
     }
 
     @Override
@@ -156,9 +151,3 @@ public class User implements UserDetails {
         return true;
     }
 }
-/*
-Для того, чтобы в дальнейшим использовать класс User в Spring Security,
-он должен реализовывать интерфейс UserDetails.
-UserDetails можно представить, как адаптер между БД пользователей и тем
-что требуется Spring Security внутри SecurityContextHolder
- */
