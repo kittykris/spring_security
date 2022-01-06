@@ -5,6 +5,9 @@
     <title>Все пользователи</title>
 </head>
 <body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 <div th:align="center">
     <h2>Список пользователей</h2>
     <a th:href="@{/new_add}">Add User</a>
@@ -19,7 +22,7 @@
         </tr>
         <tbody>
         <tr th:each="user: ${userList}">
-            <td th:text="${user.getLogin}">Login</td>
+            <td th:text="${user.username}">Login</td>
             <td th:text="${user.getFirstName}">First Name</td>
             <td th:text="${user.getLastName}">Last Name</td>
             <td th:text="${user.getAge}">Age</td>

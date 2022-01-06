@@ -6,10 +6,10 @@
 </head>
 <body>
 <div th:align="center">
-        <h2>Информация о пользователе</h2>
+    <h2>Информация о пользователе</h2>
     <br/><br/>
     <label for="login">Login: </label>
-    <input type="text" th:field="*{userDetails.getLogin}" id="login">
+    <input type="text" th:field="*{userDetails.username}" id="login">
     <br/><br/>
     <label for="firstName">First Name: </label>
     <input type="text" th:field="*{userDetails.getFirstName}" id="firstName">
@@ -24,9 +24,12 @@
     <input type="text" th:field="*{userDetails.getCity}" id="city">
     <br/><br/>
     <tr th:each="role: ${userDetailsRoles}">
-        <td th:text="${role.getName}"/>
+        <td th:text="${role.role}"/>
     </tr>
     <br/>
 </div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 </body>
 </html>
