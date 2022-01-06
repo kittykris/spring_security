@@ -43,6 +43,8 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
-        return entityManager.find(User.class, login);
+        List<User> list = entityManager.createQuery("SELECT user from User user WHERE user.username =: userName")
+                .setParameter("userName", login).getResultList();
+        return list.isEmpty() ? null : list.get(0);
     }
 }
