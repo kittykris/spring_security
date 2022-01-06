@@ -39,7 +39,7 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles"
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -98,10 +98,6 @@ public class User implements UserDetails {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public void setUsername(String login) {
-        this.username = login;
     }
 
     public void setPassword(String password) {
