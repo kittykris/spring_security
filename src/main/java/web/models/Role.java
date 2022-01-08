@@ -66,8 +66,3 @@ public class Role implements GrantedAuthority {
         return role;
     }
 }
-/*
-Этот класс реализует интерфейс GrantedAuthority, в котором необходимо переопределить
-только один метод getAuthority() (возвращает имя роли).
-Имя роли должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER.
- */
