@@ -8,7 +8,7 @@
 <div th:align="center">
     <h2>Please enter User's details:</h2>
     <br/>
-    <form th:action="@{/save}" th:object="${newUser}" th:method="post">
+    <form th:action="@{/admin/save}" th:object="${newUser}" th:method="post">
         <label for="firstName">First Name: </label>
         <input type="text" th:field="*{firstName}" id="firstName">
         <br/><br/>
@@ -18,11 +18,20 @@
         <label for="age">Age: </label>
         <input type="text" th:field="*{age}" id="age">
         <br/><br/>
-        <label for="name">City: </label>
-        <input type="text" th:field="*{city}" id="name">
+        <label for="city">City: </label>
+        <input type="text" th:field="*{city}" id="city">
         <br/><br/>
-        <p><input type="submit" value="Save"></p>
+        <label for="username">Username: </label>
+        <input type="text" th:field="*{username}" id="username">
+        <br/><br/>
+        <label for="password">User's Password: </label>
+        <input type="text" th:field="*{password}" id="password">
+        <br/><br/>
+        <p>Add role(s): </p>
+        User: <input type="checkbox" th:field="*{addRoleToUser}" name="ROLE_USER">
+        Admin: <input type="checkbox" th:field="*{addRoleToUser}" name="ROLE_ADMIN">
     </form>
+    <p><input type="submit" value="Save"></p>
 </div>
 </body>
 </html>
