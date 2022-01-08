@@ -4,6 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
@@ -20,12 +22,17 @@ public class User implements UserDetails {
     private long id;
 
     @NotBlank
+    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
+    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
     private String firstName;
 
     @NotBlank
+    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
+    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
     private String lastName;
 
     @NotNull
+    @Max(value = 120, message = "Age can' be more than 120 years")
     private byte age;
 
     @NotBlank
@@ -33,6 +40,8 @@ public class User implements UserDetails {
     private String city;
 
     @NotBlank
+    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
+    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
     private String username;
 
     @NotBlank
@@ -149,5 +158,16 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User's Details:" +
+                "\nFirstName: " + firstName +
+                "\nLast Name: " + lastName +
+                "\nAge: " + age +
+                "\nCity: " + city +
+                "\nUsername: " + username +
+                "\nRoles: " + roles;
     }
 }
