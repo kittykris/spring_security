@@ -18,30 +18,9 @@ public class RoleDaoImp implements RoleDao {
     private EntityManager entityManager;
 
     @Override
-    public void addRole(Role role) {
-        entityManager.persist(role);
-    }
-
-    @Override
-    public Role getRoleById(long id) {
-        return entityManager.find(Role.class, id);
-    }
-
-    @Override
-    public void deleteRoleById(long id) {
-        entityManager.remove(entityManager.find(Role.class, id));
-    }
-
-    @Override
-    public List<Role> allRoles() {
-        return entityManager.createQuery("SELECT role from Role role", Role.class)
-                .getResultList();
-    }
-
-    @Override
-    public Set<Role> findRoleById(List<Long> rolesId) {
+    public Set<Role> allRoles() {
         return new HashSet<>(entityManager
-                .createQuery("select role from Role role where role.id in :roles", Role.class)
-                .setParameter("roles", rolesId).getResultList());
+                .createQuery("SELECT role from Role role", Role.class)
+                .getResultList());
     }
 }
