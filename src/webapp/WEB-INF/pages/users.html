@@ -5,14 +5,16 @@
     <title>Все пользователи</title>
 </head>
 <body>
-<div th:align="center">
+<a th:href="@{/admin/new_add}">Add User</a>
+<br/><br/>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Log out"/>
+</form>
+<br/><br/>
+<div>
     <h2>Список пользователей</h2>
-    <a th:href="@{/admin/new_add}">Add User</a>
-    <br/>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Log out" />
-    </form>
-    <br/><br/>
+</div>
+<div>
     <table th:border="1" th:cellpadding="15">
         <tr>
             <th>Name</th>
@@ -25,27 +27,26 @@
         </tr>
         <tbody>
         <tr th:each="user: ${userList}">
-            <td th:text="${user.getFirstName}">First Name</td>
-            <td th:text="${user.getLastName}">Last Name</td>
-            <td th:text="${user.getAge}">Age</td>
-            <td th:text="${user.getCity}">City</td>
-            <td th:text="${user.getUsername}">Username</td>
-            <td th:text="${user.getPassword()}">Password</td>
-            <td th:text="${user.getRoles()}">Roles</td>
+            <td th:text="${user.firstName}">First Name</td>
+            <td th:text="${user.lastName}">Last Name</td>
+            <td th:text="${user.age}">Age</td>
+            <td th:text="${user.city}">City</td>
+            <td th:text="${user.username}">Username</td>
+            <td th:text="${user.password}">Password</td>
+            <td th:text="${user.roles}">Roles</td>
             <td>
-                <form th:method="get" th:action="@{/admin/{id}/edit(id=${user.getId})}">
+                <form th:method="get" th:action="@{/admin/{id}/edit(id=${user.id})}">
                     <input type="submit" th:value="Edit">
                 </form>
             </td>
             <td>
-                <form th:method="delete" th:action="@{/admin/{id}(id=${user.getId})}">
+                <form th:method="delete" th:action="@{/admin/{id}(id=${user.id})}">
                     <input type="submit" th:value="Delete">
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
-
 </div>
 </body>
 </html>
