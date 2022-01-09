@@ -5,4 +5,4 @@ insert into users value (2, 30, 'admin', 'admin', 'admin', 'admin', 'admin');
 #password "admin"
 insert into users value (3, 30, 'крис', 'крис', 'крис', 'user1', 'user1');
 #password "user1"
-insert into users_roles values (1, 1), (2, 2), (3, 1), (3, 2);
+insert into users_roles values (1, 1), (2, 2), (3, 1), (3, 2), (2, 1);
