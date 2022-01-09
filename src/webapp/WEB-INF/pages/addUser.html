@@ -6,32 +6,56 @@
 </head>
 <body>
 <div th:align="center">
-    <h2>Please enter User's details:</h2>
+    <h1>Please enter User's details:</h1>
     <br/>
     <form th:action="@{/admin/save}" th:object="${newUser}" th:method="post">
-        <label for="firstName">First Name: </label>
-        <input type="text" th:field="*{firstName}" id="firstName">
-        <br/><br/>
-        <label for="lastName">Last Name: </label>
-        <input type="text" th:field="*{lastName}" id="lastName">
-        <br/><br/>
-        <label for="age">Age: </label>
-        <input type="text" th:field="*{age}" id="age">
-        <br/><br/>
-        <label for="city">City: </label>
-        <input type="text" th:field="*{city}" id="city">
-        <br/><br/>
-        <label for="username">Username: </label>
-        <input type="text" th:field="*{username}" id="username">
-        <br/><br/>
-        <label for="password">User's Password: </label>
-        <input type="text" th:field="*{password}" id="password">
-        <br/><br/>
-        <p>Add role(s): </p>
-        User: <input type="checkbox" th:field="*{addRoleToUser}" name="ROLE_USER">
-        Admin: <input type="checkbox" th:field="*{addRoleToUser}" name="ROLE_ADMIN">
+        <div>
+            <label for="firstName">First Name: </label>
+            <input type="text" th:field="*{firstName}" id="firstName"
+                   required minlength="2" maxlength="20"/>
+        </div>
+
+        <div>
+            <label for="lastName">Last Name: </label>
+            <input type="text" th:field="*{lastName}" id="lastName"
+                   required minlength="2" maxlength="20"/>
+        </div>
+
+        <div>
+            <label for="age">Age: </label>
+            <input type="text" th:field="*{age}" id="age" required/>
+        </div>
+
+        <div>
+            <label for="city">City: </label>
+            <input type="text" th:field="*{city}" id="city"
+                   required minlength="2" maxlength="20"/>
+        </div>
+
+        <div>
+            <label for="username">Username: </label>
+            <input type="text" th:field="*{username}" id="username"
+                   required minlength="2" maxlength="20"/>
+        </div>
+
+        <div>
+            <label for="password">User's Password: </label>
+            <input type="text" th:field="*{password}" id="password"
+                   required minlength="2" maxlength="10"/>
+        </div>
+
+        <div>
+        <label>Roles:</label>
+        <th:block th:each="role: ${allRoles}">
+            <input type="checkbox" th:field="*{roles}"
+                   th:text="${role.role}" th:value="${role.id}">
+        </th:block>
+        </div>
+
+        <div>
+            <input type="submit" value="Save">
+        </div>
     </form>
-    <p><input type="submit" value="Save"></p>
 </div>
 </body>
 </html>
