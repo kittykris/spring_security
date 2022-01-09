@@ -3,6 +3,7 @@ package web.models;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,11 +15,14 @@ public class Role implements GrantedAuthority {
     @Column(name = "role_id")
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String role;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles"
+            , joinColumns = @JoinColumn(name = "role_id")
+            , inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users = new HashSet<>();
 
     public Role() {
     }
