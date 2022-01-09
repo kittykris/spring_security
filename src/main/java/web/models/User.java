@@ -4,10 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,34 +17,38 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private long id;
 
-    @NotBlank
-    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
-    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
+    //@NotBlank
+    @Column(nullable = false)
+//    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
+//    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
     private String firstName;
 
-    @NotBlank
-    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
-    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
+    //@NotBlank
+    @Column(nullable = false)
+//    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
+//    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
     private String lastName;
 
-    @NotNull
-    @Max(value = 120, message = "Age can' be more than 120 years")
+    //@NotNull
+    @Column(nullable = false)
+//    @Max(value = 120, message = "Age can' be more than 120 years")
     private byte age;
 
-    @NotBlank
-    @Column(nullable = false, length = 15)
+    //@NotBlank
+    @Column(nullable = false)
     private String city;
 
-    @NotBlank
-    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
-    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
+    //@NotBlank
+    @Column(nullable = false, unique = true)
+//    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
+//    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
     private String username;
 
-    @NotBlank
+//    @NotBlank
+    @Column(nullable = false)
     private String password;
 
-    @NotBlank
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles"
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -111,6 +111,10 @@ public class User implements UserDetails {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPassword(String password) {
