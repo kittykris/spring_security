@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import web.dao.UserDao;
 import web.models.User;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -45,6 +46,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userDao.userList();
     }
 
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userDao.getUserByLogin(login);
