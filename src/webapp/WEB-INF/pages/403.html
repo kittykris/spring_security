@@ -5,6 +5,13 @@
     <title>Ошибка</title>
 </head>
 <body>
-<h3>Данная страница Вам недоступна</h3>
+<br/>
+<div th:align="center">
+    <h2>
+        <p th:text="${msg}">Error message</p>
+    </h2>
+    <br/><br/>
+    <a th:align="center" th:href="@{/user}">Вернуться на начальную страницу</a>
+</div>
 </body>
 </html>
