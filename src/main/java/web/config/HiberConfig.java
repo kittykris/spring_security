@@ -65,6 +65,7 @@ public class HiberConfig {
         properties.put("hibernate.connection.useUnicode", env.getProperty("hibernate.connection.useUnicode"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         properties.put("hibernate.hbm2ddl.import_files", env.getProperty("hibernate.hbm2ddl.import_files"));
+        properties.put("hibernate.enable_lazy_load_no_trans", env.getProperty("hibernate.enable_lazy_load_no_trans"));
         return properties;
     }
 }
