@@ -7,15 +7,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import web.dao.UserDao;
+import web.models.Role;
 import web.models.User;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImp implements UserService, UserDetailsService {
 
     private UserDao userDao;
+
+    @Autowired
+    private RoleService roleService;
 
 
     @Autowired
@@ -30,6 +36,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public void addUser(User user) {
         //todo encrypt encoder
         //user.setPassword(bCryptEncoder.encode(user.getPassword()));
+        user.setRoles(existingRoles(user));
         userDao.addUser(user);
     }
 
@@ -40,6 +47,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public void updateUser(long id, User user) {
+        user.setRoles(existingRoles(user));
         userDao.updateUser(id, user);
     }
 
@@ -61,5 +69,16 @@ public class UserServiceImp implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("There no user with this username found");
         }
         return user;
+    }
+
+    private Set<Role> existingRoles(User user) {
+        Set<Role> roles = new HashSet<>();
+        user.getRoles().forEach(role -> {
+            Role existing = roleService.findRoleByName(role.getName());
+            if (existing.getId() != null) {
+                roles.add(existing);
+            }
+        });
+        return roles;
     }
 }
