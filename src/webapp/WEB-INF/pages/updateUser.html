@@ -8,7 +8,7 @@
 <div th:align="center">
     <h1>Ведите данные для изменения:</h1>
     <br/>
-    <form th:action="@{/{id}(id=${updateUser.id})}" th:object="${updateUser}" th:method="patch">
+    <form th:action="@{/admin/{id}(id=${updateUser.id})}" th:object="${updateUser}" th:method="patch">
         <div>
             <label for="firstName">Имя: </label>
             <input type="text" th:field="*{firstName}" id="firstName"
