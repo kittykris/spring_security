@@ -10,10 +10,9 @@ import web.models.User;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
-	@GetMapping
+	@GetMapping(value = {"/user", "/admin"})
 	public String userDetails(Model model, Principal principal) {
 		User loginedUser = (User) ((Authentication) principal).getPrincipal();
 		model.addAttribute("userDetails", loginedUser);
