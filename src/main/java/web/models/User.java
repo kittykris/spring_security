@@ -33,8 +33,8 @@ public class User implements UserDetails {
     @Column(nullable = false, length = 70)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER
-            , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(fetch = FetchType.LAZY
+            , cascade = {CascadeType.REFRESH})
     @JoinTable(name = "users_roles"
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -124,6 +124,9 @@ public class User implements UserDetails {
     }
 
     public Set<Role> getRoles() {
+        if (roles == null) {
+            roles = new HashSet();
+        }
         return roles;
     }
 
