@@ -1,4 +1,4 @@
-package web.config.security;
+package web.config.security.handlers;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
