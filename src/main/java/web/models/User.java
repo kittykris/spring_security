@@ -4,9 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
@@ -48,7 +46,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER
+            , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinTable(name = "users_roles"
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -66,11 +65,21 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void addRoleToUser(Role role) {
+    public User(String firstName, String lastName, byte age, String city, String username, String password, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.city = city;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public void addRoleToUser(Role newRole) {
         if (roles == null) {
             roles = new HashSet<>();
         }
-        roles.add(role);
+        this.roles.add(newRole);
     }
 
     public long getId() {
