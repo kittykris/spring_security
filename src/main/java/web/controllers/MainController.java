@@ -19,7 +19,7 @@ public class MainController {
     public String getAccessDenied(Model model, Principal principal) {
         if (principal != null) {
             model.addAttribute("msg", "Hi " + principal.getName()
-                    + ", sorry, but you do not have permission to access this page!");
+                    + "! Sorry, but you do not have permission to access this page!");
         } else {
             model.addAttribute("msg",
                     "Sorry, but You do not have permission to access this page!");
