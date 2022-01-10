@@ -15,35 +15,22 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private long id;
 
-    //@NotBlank
-    @Column(nullable = false)
-//    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
-//    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
+    @Column(nullable = false, length = 20)
     private String firstName;
 
-    //@NotBlank
-    @Column(nullable = false)
-//    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
-//    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
+    @Column(nullable = false, length = 20)
     private String lastName;
 
-    //@NotNull
     @Column(nullable = false)
-//    @Max(value = 120, message = "Age can' be more than 120 years")
     private byte age;
 
-    //@NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String city;
 
-    //@NotBlank
-    @Column(nullable = false, unique = true)
-//    @Min(value = 2, message = "First Name must be from 2 to 25 symbols")
-//    @Max(value = 25, message = "First Name must be from 2 to 25 symbols")
+    @Column(nullable = false, unique = true, length = 20)
     private String username;
 
-//    @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, length = 70)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER
