@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Добро пожаловать</title>
 </head>
 <body>
+<br/>
 <div th:align="center">
-    <a th:href="@{/admin/users}"> Список пользователей (Только для ADMIN) </a>
-    <br/><br/>
+    <div>
+        <a th:href="@{/admin/users}"> Список пользователей (Только для ADMIN) </a>
+    </div>
+    <br/>
     <h1>Мои детали</h1>
     <br/>
     <table th:border="1" th:cellpadding="15">
