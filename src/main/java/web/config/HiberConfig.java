@@ -60,6 +60,9 @@ public class HiberConfig {
         properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
         properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        properties.put("hibernate.connection.CharSet", env.getProperty("hibernate.connection.CharSet"));
+        properties.put("hibernate.connection.charsetEncoding", env.getProperty("hibernate.connection.charsetEncoding"));
+        properties.put("hibernate.connection.useUnicode", env.getProperty("hibernate.connection.useUnicode"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         properties.put("hibernate.hbm2ddl.import_files", env.getProperty("hibernate.hbm2ddl.import_files"));
         return properties;
