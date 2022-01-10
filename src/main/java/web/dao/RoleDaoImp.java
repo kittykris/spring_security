@@ -2,11 +2,13 @@ package web.dao;
 
 import org.springframework.stereotype.Repository;
 import web.models.Role;
+import web.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Repository
@@ -21,5 +23,25 @@ public class RoleDaoImp implements RoleDao {
         return new HashSet<>(entityManager
                 .createQuery("SELECT role from Role role", Role.class)
                 .getResultList());
+    }
+
+    @Override
+    public Role findRoleByName(String roleName) {
+        return entityManager.createQuery("select r from Role r where r.name =: roleName", Role.class)
+                .setParameter("roleName", roleName).getSingleResult();
+    }
+
+    @Override
+    public void addRole(Role role) {
+        if (!entityManager.contains(role)) {
+            entityManager.persist(role);
+        }
+    }
+
+    @Override
+    public void deleteRole(Role role) {
+        if (entityManager.contains(role)) {
+            entityManager.remove(role);
+        }
     }
 }
