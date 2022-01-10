@@ -1,35 +1,64 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Изменение пользователя</title>
 </head>
 <body>
 <div th:align="center">
-    <h2>Please enter User's details to update:</h2>
+    <h1>Ведите данные для изменения:</h1>
     <br/>
-    <form th:action="@{/admin/{id}(id=${updateUser.getId})}" th:object="${updateUser}" th:method="patch">
-        <label for="firstName">First Name: </label>
-        <input type="text" th:field="*{firstName}" id="firstName">
-        <br/><br/>
-        <label for="lastName">Last Name: </label>
-        <input type="text" th:field="*{lastName}" id="lastName">
-        <br/><br/>
-        <label for="age">Age: </label>
-        <input type="text" th:field="*{age}" id="age">
-        <br/><br/>
-        <label for="city">City: </label>
-        <input type="text" th:field="*{city}" id="city">
-        <br/><br/>
-        <label for="username">Login: </label>
-        <input type="text" th:field="*{username}" id="username">
-        <br/><br/>
-        <label for="password">Password: </label>
-        <input type="text" th:field="*{password}" id="password">
-        <br/><br/>
-        <p>Change role(s): </p>
-        User: <input type="checkbox" th:field="*{addRoleToUser}" name="ROLE_USER">
-        Admin: <input type="checkbox" th:field="*{addRoleToUser}" name="ROLE_ADMIN">
+    <form th:action="@{/{id}(id=${updateUser.id})}" th:object="${updateUser}" th:method="patch">
+        <div>
+            <label for="firstName">Имя: </label>
+            <input type="text" th:field="*{firstName}" id="firstName"
+                   required minlength="2" maxlength="20"/>
+        </div>
+        <br/>
+        <div>
+            <label for="lastName">Фамилия: </label>
+            <input type="text" th:field="*{lastName}" id="lastName"
+                   required minlength="2" maxlength="20"/>
+        </div>
+        <br/>
+        <div>
+            <label for="age">Возраст: </label>
+            <input type="text" th:field="*{age}" id="age"
+                   required />
+        </div>
+        <br/>
+        <div>
+            <label for="city">Город: </label>
+            <input type="text" th:field="*{city}" id="city"
+                   required minlength="2" maxlength="20"/>
+        </div>
+        <br/>
+        <div>
+            <label for="username">Логин: </label>
+            <input type="text" th:field="*{username}" id="username"
+                   required minlength="2" maxlength="20"/>
+        </div>
+        <br/>
+        <div>
+            <label for="password">Пароль: </label>
+            <input type="text" th:field="*{password}" id="password"
+                   required minlength="2" maxlength="10"/>
+        </div>
+        <br/>
+        <div>
+            <br/>
+            <label>Выберите роль: </label>
+            <ul>
+                <th:block th:each="role : ${allRoles}">
+                    <input type="checkbox" th:field="*{roles}" th:value="${role}"  />
+                    <label th:for="${#ids.prev('roles')}" th:text="${role.name}">Users Role</label>
+                </th:block>
+            </ul>
+        </div>
+
+        <div>
+            <input type="submit" value="Update">
+        </div>
     </form>
 </div>
 </body>
