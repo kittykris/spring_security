@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Добро пожаловать</title>
@@ -14,28 +13,35 @@
         <a th:href="@{/admin/users}"> Список пользователей (Только для ADMIN) </a>
     </div>
     <br/>
-    <h1>Мои детали</h1>
+    <div>
+        <h1>Мои детали</h1>
+    </div>
     <br/>
-    <table th:border="1" th:cellpadding="15">
-        <tr>
-            <th>Имя:</th>
-            <th>Фамилия:</th>
-            <th>Возраст:</th>
-            <th>Город:</th>
-            <th>Логин:</th>
-        </tr>
-        <tbody>
-        <td th:text="${userDetails.firstName}">First Name:</td>
-        <td th:text="${userDetails.lastName}">Last Name</td>
-        <td th:text="${userDetails.age}">Age</td>
-        <td th:text="${userDetails.city}">City</td>
-        <td th:text="${userDetails.username}">Username</td>
-        </tbody>
-    </table>
+    <div>
+        <table th:border="1" th:cellpadding="15">
+            <tr>
+                <th>Имя:</th>
+                <th>Фамилия:</th>
+                <th>Возраст:</th>
+                <th>Город:</th>
+                <th>Логин:</th>
+            </tr>
+            <tbody>
+            <td th:text="${userDetails.firstName}">First Name:</td>
+            <td th:text="${userDetails.lastName}">Last Name</td>
+            <td th:text="${userDetails.age}">Age</td>
+            <td th:text="${userDetails.city}">City</td>
+            <td th:text="${userDetails.username}">Username</td>
+            </tbody>
+        </table>
+    </div>
     <br/><br/>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Log out"/>
-    </form>
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Log out"/>
+        </form>
+    </div>
+
 </div>
 </body>
 </html>
