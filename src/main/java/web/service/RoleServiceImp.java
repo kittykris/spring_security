@@ -17,4 +17,9 @@ public class RoleServiceImp implements RoleService{
     public Set<Role> allRoles() {
         return roleDao.allRoles();
     }
+
+    @Override
+    public Role findRoleByName(String roleName) {
+        return roleDao.findRoleByName(roleName);
+    }
 }
