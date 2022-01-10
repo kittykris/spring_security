@@ -6,11 +6,15 @@
 </head>
 <body>
 <br/>
-<a th:href="@{/admin/new_add}">Добавить пользователя</a>
+<div>
+    <a th:align="center" th:href="@{/admin/new_add}">Добавить пользователя</a>
+</div>
 <br/><br/>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Log out"/>
-</form>
+<div>
+    <form th:align="center" th:action="@{/logout}" method="post">
+        <input type="submit" value="Log out"/>
+    </form>
+</div>
 <br/><br/>
 <div>
     <h2>Список пользователей</h2>
