@@ -28,7 +28,7 @@
                 <th>Email</th>
                 <th>Город</th>
                 <th>Логин</th>
-                <th>Пароль</th>
+<!--                <th>Пароль</th>-->
                 <th>Роль</th>
             </tr>
             <tbody>
@@ -38,7 +38,7 @@
                 <td th:text="${user.email}">Email</td>
                 <td th:text="${user.city}">City</td>
                 <td th:text="${user.username}">Username</td>
-                <td th:text="${user.password}">Password</td>
+<!--                <td th:text="${user.password}">Password</td>-->
                 <td th:text="${user.roles}">Roles</td>
                 <td>
                     <form th:method="get" th:action="@{/admin/{id}/edit(id=${user.id})}">
