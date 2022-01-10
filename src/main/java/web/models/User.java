@@ -82,6 +82,12 @@ public class User implements UserDetails {
         this.roles.add(newRole);
     }
 
+    public void deleteRoleFromUser(Role role) {
+        if (roles != null && roles.contains(role)) {
+            roles.remove(role);
+        }
+    }
+
     public long getId() {
         return id;
     }
