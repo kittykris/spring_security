@@ -21,13 +21,13 @@ public class User implements UserDetails {
     @Column(nullable = false, length = 20)
     private String lastName;
 
-    @Column(nullable = false)
-    private byte age;
+    @Column(nullable = false, length = 254)
+    private String email;
 
     @Column(nullable = false, length = 20)
     private String city;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 30)
     private String username;
 
     @Column(nullable = false, length = 70)
@@ -43,19 +43,19 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String firstName, String lastName, byte age, String city, String username, String password) {
+    public User(String firstName, String lastName, String email, String city, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.email = email;
         this.city = city;
         this.username = username;
         this.password = password;
     }
 
-    public User(String firstName, String lastName, byte age, String city, String username, String password, Set<Role> roles) {
+    public User(String firstName, String lastName, String email, String city, String username, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.email = email;
         this.city = city;
         this.username = username;
         this.password = password;
@@ -99,12 +99,12 @@ public class User implements UserDetails {
         this.lastName = lastName;
     }
 
-    public byte getAge() {
-        return age;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAge(byte age) {
-        this.age = age;
+    public void setEmail(String age) {
+        this.email = age;
     }
 
     public String getCity() {
@@ -174,7 +174,7 @@ public class User implements UserDetails {
         return "User's Details:" +
                 "\nFirstName: " + firstName +
                 "\nLast Name: " + lastName +
-                "\nAge: " + age +
+                "\nEmail: " + email +
                 "\nCity: " + city +
                 "\nUsername: " + username +
                 "\nRoles: " + roles;
