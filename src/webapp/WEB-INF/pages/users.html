@@ -5,53 +5,55 @@
     <title>Все пользователи</title>
 </head>
 <body>
-<br/>
-<div>
-    <a th:align="center" th:href="@{/admin/new_add}">Добавить пользователя</a>
-</div>
-<br/><br/>
-<div>
-    <form th:align="center" th:action="@{/logout}" method="post">
-        <input type="submit" value="Log out"/>
-    </form>
-</div>
-<br/><br/>
-<div>
-    <h2>Список пользователей</h2>
-</div>
-<div>
-    <table th:border="1" th:cellpadding="15">
-        <tr>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Возраст</th>
-            <th>Город</th>
-            <th>Логин</th>
-            <th>Пароль</th>
-            <th>Роль</th>
-        </tr>
-        <tbody>
-        <tr th:each="user: ${userList}">
-            <td th:text="${user.firstName}">First Name</td>
-            <td th:text="${user.lastName}">Last Name</td>
-            <td th:text="${user.age}">Age</td>
-            <td th:text="${user.city}">City</td>
-            <td th:text="${user.username}">Username</td>
-            <td th:text="${user.password}">Password</td>
-            <td th:text="${user.roles}">Roles</td>
-            <td>
-                <form th:method="get" th:action="@{/admin/{id}/edit(id=${user.id})}">
-                    <input type="submit" th:value="Edit">
-                </form>
-            </td>
-            <td>
-                <form th:method="delete" th:action="@{/admin/{id}(id=${user.id})}">
-                    <input type="submit" th:value="Delete">
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div th:align="center">
+    <br/>
+    <div>
+        <a th:href="@{/admin/new_add}">Добавить пользователя</a>
+    </div>
+    <br/>
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Log out"/>
+        </form>
+    </div>
+    <br/><br/>
+    <div>
+        <h2>Список пользователей</h2>
+    </div>
+    <div>
+        <table th:border="1" th:cellpadding="15">
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Email</th>
+                <th>Город</th>
+                <th>Логин</th>
+                <th>Пароль</th>
+                <th>Роль</th>
+            </tr>
+            <tbody>
+            <tr th:each="user: ${userList}">
+                <td th:text="${user.firstName}">First Name</td>
+                <td th:text="${user.lastName}">Last Name</td>
+                <td th:text="${user.email}">Email</td>
+                <td th:text="${user.city}">City</td>
+                <td th:text="${user.username}">Username</td>
+                <td th:text="${user.password}">Password</td>
+                <td th:text="${user.roles}">Roles</td>
+                <td>
+                    <form th:method="get" th:action="@{/admin/{id}/edit(id=${user.id})}">
+                        <input type="submit" th:value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form th:method="delete" th:action="@{/admin/{id}(id=${user.id})}">
+                        <input type="submit" th:value="Delete">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

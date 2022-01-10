@@ -22,8 +22,9 @@
         </div>
         <br/>
         <div>
-            <label for="age">Возраст: </label>
-            <input type="text" th:field="*{age}" id="age" required/>
+            <label for="email">Email: </label>
+            <input type="text" th:field="*{email}" id="email"
+                   required minlength="8" maxlength="254"/>
         </div>
         <br/>
         <div>
