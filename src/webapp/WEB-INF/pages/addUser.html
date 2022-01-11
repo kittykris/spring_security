@@ -53,6 +53,7 @@
                 <div th:each="role : ${allRoles}">
                     <input type="checkbox" th:field="*{roles}" th:value="${role}"/>
                     <label th:for="${#ids.prev('roles')}" th:text="${role.name}">Users Role</label>
+                    <div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">Roles error:</div>
                 </div>
             </ul>
         </div>
