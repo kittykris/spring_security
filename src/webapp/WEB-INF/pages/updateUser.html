@@ -9,7 +9,6 @@
     <div>
         <h1>Ведите данные для изменения:</h1>
     </div>
-
     <br/>
     <div>
         <form th:action="@{/admin/{id}(id=${updateUser.id})}" th:object="${updateUser}" th:method="patch">
@@ -41,22 +40,22 @@
                 <label for="username">Логин: </label>
                 <input type="text" th:field="*{username}" id="username"
                        required minlength="2" maxlength="20"/>
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Login error: </div>
             </div>
             <br/>
-<!--            <div>-->
-<!--                <label for="password">Пароль: </label>-->
-<!--                <input type="text" th:field="*{password}" id="password"-->
-<!--                       required minlength="2" maxlength="10"/>-->
-<!--            </div>-->
+            <div>
+                <label for="password">Пароль: </label>
+                <input type="text" th:field="*{password}" id="password" readonly/>
+            </div>
             <br/>
             <div>
                 <br/>
                 <label>Выберите роль: </label>
                 <ul>
-                    <th:block th:each="role : ${allRoles}">
+                    <div th:each="role : ${allRoles}">
                         <input type="checkbox" th:field="*{roles}" th:value="${role}"/>
                         <label th:for="${#ids.prev('roles')}" th:text="${role.name}">Users Role</label>
-                    </th:block>
+                    </div>
                 </ul>
             </div>
             <br/>
