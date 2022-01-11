@@ -2,6 +2,7 @@ package web.models;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import web.service.validator.UniqueUsername;
 
 import javax.persistence.*;
 import java.util.*;
@@ -27,6 +28,7 @@ public class User implements UserDetails {
     @Column(nullable = false, length = 20)
     private String city;
 
+    @UniqueUsername
     @Column(nullable = false, length = 30)
     private String username;
 
@@ -178,5 +180,18 @@ public class User implements UserDetails {
                 "\nCity: " + city +
                 "\nUsername: " + username +
                 "\nRoles: " + roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getUsername().equals(user.getUsername());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUsername());
     }
 }
