@@ -1,10 +1,12 @@
 package web.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import web.models.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
+
     void addUser(User user);
 
     User getUserById(long id);
@@ -15,5 +17,5 @@ public interface UserService {
 
     List<User> userList();
 
-    boolean isUsernameNotUnique(String userName);
+    boolean isUsernameUnique(String userName);
 }

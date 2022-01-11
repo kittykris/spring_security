@@ -2,36 +2,31 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import web.dao.UserDao;
-import web.models.Role;
 import web.models.User;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
-public class UserServiceImp implements UserService, UserDetailsService {
+public class UserServiceImp implements UserService {
 
     private UserDao userDao;
-
-    @Autowired
     private RoleService roleService;
 
     @Autowired
-    public UserServiceImp(UserDao userDao) {
+    public UserServiceImp(UserDao userDao, RoleService roleService) {
         this.userDao = userDao;
+        this.roleService = roleService;
     }
 
     @Override
     public void addUser(User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(existingRoles(user));
+        user.setRoles(roleService.existingRoles(user));
         userDao.addUser(user);
     }
 
@@ -42,7 +37,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public void updateUser(long id, User user) {
-        user.setRoles(existingRoles(user));
+        user.setRoles(roleService.existingRoles(user));
         userDao.updateUser(id, user);
     }
 
@@ -66,22 +61,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public boolean isUsernameNotUnique(String userName) {
+    public boolean isUsernameUnique(String userName) {
         boolean unique = true;
-        if (userDao.getUserByLogin(userName) == null) {
+        if (userDao.getUserByLogin(userName) != null) {
             unique = false;
         }
         return unique;
-    }
-
-    private Set<Role> existingRoles(User user) {
-        Set<Role> roles = new HashSet<>();
-        user.getRoles().forEach(role -> {
-            Role existing = roleService.findRoleByName(role.getName());
-            if (existing.getId() != null) {
-                roles.add(existing);
-            }
-        });
-        return roles;
     }
 }
