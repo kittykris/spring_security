@@ -65,6 +65,15 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return user;
     }
 
+    @Override
+    public boolean isUsernameNotUnique(String userName) {
+        boolean unique = true;
+        if (userDao.getUserByLogin(userName) == null) {
+            unique = false;
+        }
+        return unique;
+    }
+
     private Set<Role> existingRoles(User user) {
         Set<Role> roles = new HashSet<>();
         user.getRoles().forEach(role -> {
