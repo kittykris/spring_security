@@ -37,6 +37,7 @@
             <label for="username">Логин: </label>
             <input type="text" th:field="*{username}" id="username"
                    required minlength="4" maxlength="20"/>
+            <p th:text="${#fields.errors('username')}">Username Error</p>
         </div>
         <br/>
         <div>
