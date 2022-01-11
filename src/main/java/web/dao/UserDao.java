@@ -14,6 +14,4 @@ public interface UserDao {
     void deleteUser(long id);
 
     List<User> userList();
-
-    User getUserByLogin(String login);
 }
