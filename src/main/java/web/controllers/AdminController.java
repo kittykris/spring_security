@@ -8,22 +8,24 @@ import web.models.User;
 import web.service.RoleService;
 import web.service.UserService;
 
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-    private UserService service;
+    private UserService userService;
     private RoleService roleService;
+    private final String mainRedirect = "redirect:/admin/users";
 
     @Autowired
-    public AdminController(UserService service, RoleService roleService) {
-        this.service = service;
+    public AdminController(UserService userService, RoleService roleService) {
+        this.userService = userService;
         this.roleService = roleService;
     }
 
     @GetMapping("/users")
     public String usersList(Model model) {
-        model.addAttribute("userList", service.userList());
+        model.addAttribute("userList", userService.userList());
         return "users";
     }
 
@@ -36,27 +38,28 @@ public class AdminController {
 
     @PostMapping("/save")
     public String addNewUser(@ModelAttribute User user) {
-        service.addUser(user);
-        return "redirect:/admin/users";
+        userService.addUser(user);
+        return mainRedirect;
     }
 
     @GetMapping("/{id}/edit")
     public String editUser(@PathVariable("id") long id, Model model) {
-        model.addAttribute("allRoles",roleService.allRoles() );
-        model.addAttribute("updateUser", service.getUserById(id));
+        model.addAttribute("allRoles", roleService.allRoles());
+        model.addAttribute("updateUser", userService.getUserById(id));
         return "updateUser";
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@PathVariable("id") long id, @ModelAttribute User user) {
-        service.updateUser(id, user);
-        return "redirect:/admin/users";
+    public String updateUser(@PathVariable("id") long id,
+                             @ModelAttribute User user) {
+        userService.updateUser(id, user);
+        return mainRedirect;
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable long id) {
-        service.deleteUser(id);
-        return "redirect:/admin/users";
+        userService.deleteUser(id);
+        return mainRedirect;
     }
 
 }
