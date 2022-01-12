@@ -56,6 +56,7 @@ public class UserDaoImp implements UserDao {
         return user;
     }
 
+    @Override
     public void updateUserWithoutUsername(long id, User user) {
         User oldUser = entityManager.find(User.class, id);
         oldUser.setFirstName(user.getFirstName());

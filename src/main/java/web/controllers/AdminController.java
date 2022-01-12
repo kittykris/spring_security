@@ -71,6 +71,10 @@ public class AdminController {
                              Model model) {
         if (!userService.isUsernameUnique(user.getUsername())) {
             if (userService.getUserById(id).getUsername().equals(user.getUsername())) {
+                if (user.getRoles().isEmpty()) {
+                    addErrorIfExistsForField(result, model, "roles", "Role must be not empty");
+                    return "updateUser";
+                }
                 userService.updateUserWithoutUsername(id, user);
                 return redirect;
             }
