@@ -42,4 +42,10 @@ public class RoleDaoImp implements RoleDao {
             entityManager.remove(role);
         }
     }
+
+    @Override
+    public void addDefaultRoles() {
+        entityManager.persist(new Role("ROLE_USER"));
+        entityManager.persist(new Role("ROLE_ADMIN"));
+    }
 }

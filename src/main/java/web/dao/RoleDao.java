@@ -13,4 +13,6 @@ public interface RoleDao {
     void addRole(Role role);
 
     void deleteRole(Role role);
+
+    void addDefaultRoles();
 }
